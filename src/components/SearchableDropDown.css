@@ -20,6 +20,8 @@
 
 .input {
   width: 20px;
+  padding: 20px;
+  margin: 10px;
 }
 
 .dd-list {

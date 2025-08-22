@@ -1,23 +1,47 @@
-.json-section {
-  padding: 20px;
-  margin-top: 40px;
-  text-align: left;
+.output-container {
+  /* background-color: #fff; */
+  max-width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
 }
 
-.username {
+.user-section,
+.post-section {
+  width: 50%;
+  align-content: start;
+  flex: 1;
+}
+
+.userinfo {
+  align-content: start;
+}
+
+.infoStyle {
   display: inline;
   font-weight: 900;
   font-size: 30px;
   padding-left: 10px;
 }
 
-.json-container {
+.json-user-container {
   /* Retained from original code */
-  width: 50%;
+  width: 95%;
   max-height: 500px;
   scrollbar-width: none;
   border: 1px solid #ccc;
   /* Add these properties for limited height and scrolling */
   height: 40%;
-  overflow-y: auto;
+  overflow: auto;
+}
+
+.json-post-container {
+  /* Retained from original code */
+  width: 100%;
+  height: 10%;
+  scrollbar-width: none;
+  border: 1px solid #ccc;
+  /* Add these properties for limited height and scrolling */
+  height: 40%;
+  overflow: auto;
 }

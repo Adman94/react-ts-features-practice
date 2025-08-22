@@ -1,6 +1,12 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
+  width: 80%;
+  height: 100vh;
+  margin: auto;
   padding: 2rem;
   text-align: center;
 }
@@ -31,62 +37,4 @@
   a:nth-of-type(2) .logo {
     animation: logo-spin infinite 20s linear;
   }
-}
-
-.card {
-  padding: 3em;
-  margin: auto;
-  width: 40%;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
-.searchable-dd {
-  position: relative; /* This is crucial for positioning the dropdown list */
-  width: 300px; /* Adjust as needed */
-  font-family: sans-serif;
-}
-
-.searchable-dd input {
-  width: 100%;
-  padding: 8px 12px;
-  border: none;
-  border-radius: 4px;
-  box-sizing: border-box; /* Ensures padding doesn't affect the width */
-}
-
-.dd-list {
-  position: absolute; /* Positions the list relative to the container */
-  top: 100%; /* Places the list directly below the input */
-  left: 0;
-  width: 100%;
-  max-height: 200px; /* Limits the height and makes it scrollable */
-  overflow-y: auto;
-  list-style: none; /* Removes bullet points */
-  margin: 0;
-  padding: 0;
-  background-color: #242424;
-  border: 1px solid #ccc;
-  border-top: none; /* Gives a cleaner look */
-  border-radius: 0 0 4px 4px;
-  z-index: 10; /* Ensures the dropdown appears on top of other content */
-}
-
-.dd-list li {
-  padding: 3px 12px;
-  border: none;
-  cursor: pointer;
-}
-
-.dd-list li:hover {
-  background-color: #f0f0f0;
-  color: #242424;
-}
-
-.dd-list li.no-results {
-  color: #888;
-  cursor: default;
-  font-style: italic;
 }

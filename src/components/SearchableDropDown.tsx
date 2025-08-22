@@ -1,13 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
-
-interface SearchableDropDownItem {
-  id: string | number;
-  label: string;
-}
+import "./SearchableDropDown.css";
+import type { User } from "../types.ts";
 
 interface SearchableDropDownProps {
-  items: SearchableDropDownItem[];
-  onSelect: (item: SearchableDropDownItem) => void;
+  items: User[];
+  onSelect: (item: User) => void;
   placeholder?: string;
 }
 
@@ -22,9 +19,10 @@ const SearchableDropDown: React.FC<SearchableDropDownProps> = ({
   const dropdownRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const filteredItems = items.filter((item) =>
-    item.label.toLowerCase().includes(query.toLowerCase())
-  );
+  const filteredItems = items.filter((item) => {
+    const fullName = `${item.firstName} ${item.lastName}`;
+    return fullName.toLowerCase().includes(query.toLowerCase());
+  });
 
   useEffect(() => {
     if (isOpen) {
@@ -37,8 +35,9 @@ const SearchableDropDown: React.FC<SearchableDropDownProps> = ({
     setIsOpen(true);
   };
 
-  const handleItemClick = (item: SearchableDropDownItem) => {
-    setQuery(item.label);
+  const handleItemClick = (item: User) => {
+    const fullName = `${item.firstName} ${item.lastName}`;
+    setQuery(fullName);
     setIsOpen(false);
     onSelect(item);
   };
@@ -71,7 +70,6 @@ const SearchableDropDown: React.FC<SearchableDropDownProps> = ({
   };
 
   const handleBlur = (e: React.FocusEvent) => {
-    // Check if the related target is within the component
     if (!dropdownRef.current?.contains(e.relatedTarget as Node)) {
       setIsOpen(false);
     }
@@ -86,7 +84,9 @@ const SearchableDropDown: React.FC<SearchableDropDownProps> = ({
       aria-expanded={isOpen}
       aria-haspopup="listbox"
     >
+      <h2 className="title">"Searchable Dropdown Component"</h2>
       <input
+        className="input"
         ref={inputRef}
         type="text"
         placeholder={placeholder}
@@ -98,19 +98,27 @@ const SearchableDropDown: React.FC<SearchableDropDownProps> = ({
         aria-controls="dropdown-list"
       />
       {isOpen && (
-        <ul className="dd-list" id="dropdown-list" role="listbox">
+        <ul
+          className="dd-list"
+          id="dropdown-list"
+          role="listbox"
+          style={{ maxHeight: "200px", overflowY: "auto" }}
+        >
           {filteredItems.length > 0 ? (
-            filteredItems.map((item, index) => (
-              <li
-                key={item.id}
-                onMouseDown={() => handleItemClick(item)}
-                className={index === highlightedIndex ? "highlighted" : ""}
-                role="option"
-                aria-selected={index === highlightedIndex}
-              >
-                {item.label}
-              </li>
-            ))
+            filteredItems.map((item, index) => {
+              const fullName = `${item.firstName} ${item.lastName}`;
+              return (
+                <li
+                  key={item.id}
+                  onMouseDown={() => handleItemClick(item)}
+                  className={index === highlightedIndex ? "highlighted" : ""}
+                  role="option"
+                  aria-selected={index === highlightedIndex}
+                >
+                  {fullName}
+                </li>
+              );
+            })
           ) : (
             <li className="no-results" role="option">
               No results found

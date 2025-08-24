@@ -96,6 +96,7 @@
 .json-user-container::-webkit-scrollbar,
 .json-post-container::-webkit-scrollbar {
   width: 5px; /* Or desired width */
+  max-height: 2px;
 }
 
 .json-user-container::-webkit-scrollbar-thumb,

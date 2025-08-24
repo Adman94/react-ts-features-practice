@@ -14,7 +14,7 @@
 }
 
 .postTitleBody {
-  margin-top: 30px;
+  margin-top: 6%;
 }
 
 .postTitle {
@@ -30,8 +30,6 @@
   align-items: center;
   width: 50%;
   margin: auto;
-  /* border: 2px solid white; */
-  /* background-color: rgba(0, 0, 0, 0.5); */
   padding: 30px;
 
   border-radius: 20px;
@@ -84,6 +82,7 @@
 
 .userinfo {
   align-content: start;
+  margin-top: 5%;
 }
 
 .infoStyle {

@@ -13,6 +13,75 @@
   flex: 1;
 }
 
+.postTitleBody {
+  margin-top: 30px;
+}
+
+.postTitle {
+  font-size: 50px;
+}
+
+.postBody {
+  font-size: 30px;
+  font-style: italic;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  margin: auto;
+  /* border: 2px solid white; */
+  /* background-color: rgba(0, 0, 0, 0.5); */
+  padding: 30px;
+
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.postBody p {
+  z-index: 1;
+  background: #0c121a;
+  border-radius: 16px;
+  padding: 15px;
+}
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+.postBody::after,
+.postBody::before {
+  content: "";
+  position: absolute;
+  background-image: conic-gradient(
+    from var(--angle),
+    transparent 5%,
+    #ff4545,
+    #00ff99,
+    #006aff,
+    #ff0095,
+    #a845ff
+  );
+  inset: 28px;
+  border-radius: 20px;
+  animation: 3s spin linear infinite;
+}
+
+.postBody::before {
+  filter: blur(0.5rem);
+  opacity: 0.5;
+}
+
+@keyframes spin {
+  from {
+    --angle: 0deg;
+  }
+  to {
+    --angle: 360deg;
+  }
+}
+
 .userinfo {
   align-content: start;
 }
@@ -27,7 +96,10 @@
 .json-user-container::-webkit-scrollbar,
 .json-post-container::-webkit-scrollbar {
   width: 5px; /* Or desired width */
+<<<<<<< HEAD
+=======
   max-height: 2px;
+>>>>>>> main
 }
 
 .json-user-container::-webkit-scrollbar-thumb,
@@ -45,6 +117,12 @@
   overflow: auto;
 }
 
+<<<<<<< HEAD
+.json-user-container:hover,
+.json-post-container:hover {
+  filter: drop-shadow(0 0 2em #7db59daa);
+=======
 .json-user-container pre {
   /* border: 2px solid white; */
+>>>>>>> main
 }

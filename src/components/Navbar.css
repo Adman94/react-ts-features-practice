@@ -1,0 +1,17 @@
+.nav-links {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: start;
+  margin: auto;
+}
+
+.nav-links > div {
+  /* border: 2px dotted rgb(97, 255, 178); */
+  border-radius: 10px;
+  padding: 10px;
+  margin: 5px;
+  font-size: 20px;
+  font-weight: 900;
+  /* background-color: #fff; */
+}

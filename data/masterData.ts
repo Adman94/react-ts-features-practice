@@ -2137,3 +2137,4 @@ const masterData = {
 };
 
 export const users = masterData.users;
+export const posts = masterData.posts;

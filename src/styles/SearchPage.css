@@ -1,0 +1,50 @@
+.output-container {
+  /* background-color: #fff; */
+  max-width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.user-section,
+.post-section {
+  width: 50%;
+  align-content: start;
+  flex: 1;
+}
+
+.userinfo {
+  align-content: start;
+}
+
+.infoStyle {
+  display: inline;
+  font-weight: 900;
+  font-size: 30px;
+  padding-left: 10px;
+}
+
+.json-user-container::-webkit-scrollbar,
+.json-post-container::-webkit-scrollbar {
+  width: 5px; /* Or desired width */
+  max-height: 2px;
+}
+
+.json-user-container::-webkit-scrollbar-thumb,
+.json-post-container::-webkit-scrollbar-thumb {
+  background-color: #818181;
+  border-radius: 10px;
+}
+
+.json-user-container,
+.json-post-container {
+  margin: 15px;
+  width: 95%;
+  max-height: 350px;
+  height: 40%;
+  overflow: auto;
+}
+
+.json-user-container pre {
+  /* border: 2px solid white; */
+}

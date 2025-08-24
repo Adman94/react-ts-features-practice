@@ -17,9 +17,31 @@
   margin-top: 50px;
   font-size: 30px;
 }
+.inputs {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.inputs > * {
+  margin: 2px;
+}
 
 .input {
   width: 20px;
+  padding: 20px;
+  margin: 10px;
+}
+
+.dd-list::-webkit-scrollbar {
+  width: 3px; /* Or desired width */
+  max-height: 2px;
+}
+
+.dd-list::-webkit-scrollbar-thumb {
+  background-color: #818181;
+  border-radius: 10px;
+  box-shadow: inset 0 0 0 1px #555;
 }
 
 .dd-list {
@@ -37,7 +59,6 @@
   border-top: none; /* Gives a cleaner look */
   border: none;
   z-index: 10; /* Ensures the dropdown appears on top of other content */
-  scrollbar-width: none;
 }
 
 .dd-list li {
@@ -55,4 +76,9 @@
   color: #888;
   cursor: default;
   font-style: italic;
+}
+
+.current-user,
+.current-post {
+  color: #75ff79;
 }

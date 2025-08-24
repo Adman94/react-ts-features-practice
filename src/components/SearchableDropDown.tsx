@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useMemo } from "react";
-import "./SearchableDropDown.css";
+import "../styles/SearchableDropDown.css";
 import type { User, Post } from "../types.ts";
 
 interface SearchableDropDownProps {
@@ -8,8 +8,8 @@ interface SearchableDropDownProps {
   onUserSelect: (item: User) => void;
   onPostSelect: (item: Post) => void;
   placeholder?: string;
-  selectedUser?: User | null;
-  selectedPost?: Post | null;
+  selectedUser: User | null;
+  selectedPost: Post | null;
 }
 
 const SearchableDropDown: React.FC<SearchableDropDownProps> = ({
@@ -60,32 +60,38 @@ const SearchableDropDown: React.FC<SearchableDropDownProps> = ({
   // Filter users based on query, ensuring the selected user is NOT in this list
   const filteredPosts = useMemo(() => {
     const currentQueryLower = postQuery.toLowerCase();
-    const selectedPostNameLower = selectedUser
-      ? `${selectedUser.firstName} ${selectedUser.lastName}`.toLowerCase()
+    const selectedPostTitleLower = selectedPost
+      ? `${selectedPost.title}`.toLowerCase()
       : "";
     return posts.filter((post) => {
       const matchesQuery = post.title.toLowerCase().includes(currentQueryLower);
-      const isNotSelected = selectedUser ? post.id !== selectedUser.id : true;
+      const isNotSelected = selectedPost ? post.id !== selectedPost.id : true;
 
       // Special condition: if the query is exactly the selected user's name
       // AND the dropdown is open, we want to show all other users in the filtered list
       // This allows them to be displayed after the selected user.
       if (
-        selectedUser &&
-        currentQueryLower === selectedPostNameLower &&
-        isUserOpen
+        selectedPost &&
+        currentQueryLower === selectedPostTitleLower &&
+        isPostOpen
       ) {
         return isNotSelected; // Return true for all users EXCEPT the selected one
       }
       return matchesQuery && isNotSelected; // Standard filtering for other scenarios
     });
-  }, [postQuery, posts, selectedUser, isUserOpen]); // isUserOpen is a dependency to re-evaluate when dropdown state changes
+  }, [postQuery, posts, selectedPost, isPostOpen]); // isUserOpen is a dependency to re-evaluate when dropdown state changes
 
   useEffect(() => {
     if (isUserOpen) {
       setHighlightedUserIndex(selectedUser ? 0 : -1);
     }
   }, [isUserOpen, selectedUser]);
+
+  useEffect(() => {
+    if (isPostOpen) {
+      setHighlightedPostIndex(selectedPost ? 0 : -1);
+    }
+  }, [isPostOpen, selectedPost]);
 
   const handleUserInputChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -106,12 +112,14 @@ const SearchableDropDown: React.FC<SearchableDropDownProps> = ({
     setUserQuery(fullName);
     setIsUserOpen(false);
     onUserSelect(user);
+    setPostQuery("");
   };
 
   const handlePostClick = (post: Post) => {
     setPostQuery(post.title);
     setIsPostOpen(false);
     onPostSelect(post);
+    setUserQuery("");
   };
 
   const handleUserKeyDown = (event: React.KeyboardEvent) => {
@@ -149,7 +157,7 @@ const SearchableDropDown: React.FC<SearchableDropDownProps> = ({
     switch (event.key) {
       case "ArrowDown":
         event.preventDefault();
-        setIsUserOpen(true);
+        setIsPostOpen(true);
         newIndex =
           newIndex < filteredPosts.length - 1 ? newIndex + 1 : newIndex;
         break;
@@ -187,138 +195,140 @@ const SearchableDropDown: React.FC<SearchableDropDownProps> = ({
   return (
     <>
       <h2 className="title">"Searchable Dropdown Component"</h2>
-      <div
-        className="searchable-dd"
-        ref={dropdownUserRef}
-        onBlur={handleUserBlur}
-        role="combobox"
-        aria-expanded={isUserOpen}
-        aria-haspopup="listbox"
-      >
-        <input
-          className="input"
-          ref={userInputRef}
-          type="text"
-          placeholder="Search for a user..."
-          value={userQuery}
-          onChange={handleUserInputChange}
-          onFocus={() => setIsUserOpen(true)}
-          onKeyDown={handleUserKeyDown}
-          aria-autocomplete="list"
-          aria-controls="dropdown-list"
-        />
-        {isUserOpen && (
-          <ul
-            className="dd-list"
-            id="dropdown-list"
-            role="listbox"
-            style={{ maxHeight: "200px", overflowY: "auto" }}
-          >
-            {selectedUser && (
-              <li
-                key={selectedUser.id}
-                onMouseDown={() => handleUserClick(selectedUser)}
-                className={0 === highlightedUserIndex ? "highlighted" : ""}
-                role="option"
-                aria-selected={0 === highlightedUserIndex}
-              >
-                {selectedUser.firstName} {selectedUser.lastName}
-              </li>
-            )}
-            {filteredUsers.length > 0 ? (
-              filteredUsers.map((item, index) => {
-                const fullName = `${item.firstName} ${item.lastName}`;
-                return (
-                  <li
-                    key={item.id}
-                    onMouseDown={() => handleUserClick(item)}
-                    className={
-                      index + (selectedUser ? 1 : 0) === highlightedUserIndex
-                        ? "highlighted"
-                        : ""
-                    }
-                    role="option"
-                    aria-selected={
-                      index + (selectedUser ? 1 : 0) === highlightedUserIndex
-                    }
-                  >
-                    {fullName}
-                  </li>
-                );
-              })
-            ) : (
-              <li className="no-results" role="option">
-                No results found
-              </li>
-            )}
-          </ul>
-        )}
-      </div>
-      <div
-        className="searchable-dd"
-        ref={dropdownPostRef}
-        onBlur={handlePostBlur}
-        role="combobox"
-        aria-expanded={isPostOpen}
-        aria-haspopup="listbox"
-      >
-        <input
-          className="input"
-          ref={postInputRef}
-          type="text"
-          placeholder="Search for a post..."
-          value={postQuery}
-          onChange={handlePostInputChange}
-          onFocus={() => setIsPostOpen(true)}
-          onKeyDown={handlePostKeyDown}
-          aria-autocomplete="list"
-          aria-controls="dropdown-list"
-        />
-        {isPostOpen && (
-          <ul
-            className="dd-list"
-            id="dropdown-list"
-            role="listbox"
-            style={{ maxHeight: "200px", overflowY: "auto" }}
-          >
-            {selectedPost && (
-              <li
-                key={selectedPost.id}
-                onMouseDown={() => handlePostClick(selectedPost)}
-                className={0 === highlightedPostIndex ? "highlighted" : ""}
-                role="option"
-                aria-selected={0 === highlightedPostIndex}
-              >
-                {selectedPost.title}
-              </li>
-            )}
-            {filteredPosts.length > 0 ? (
-              filteredPosts.map((item, index) => {
-                return (
-                  <li
-                    key={item.id}
-                    onMouseDown={() => handlePostClick(item)}
-                    className={
-                      index + (selectedPost ? 1 : 0) === highlightedPostIndex
-                        ? "highlighted"
-                        : ""
-                    }
-                    role="option"
-                    aria-selected={
-                      index + (selectedPost ? 1 : 0) === highlightedPostIndex
-                    }
-                  >
-                    {item.title}
-                  </li>
-                );
-              })
-            ) : (
-              <li className="no-results" role="option">
-                No results found
-              </li>
-            )}
-          </ul>
-        )}
+      <div className="inputs">
+        <div
+          className="searchable-dd"
+          ref={dropdownUserRef}
+          onBlur={handleUserBlur}
+          role="combobox"
+          aria-expanded={isUserOpen}
+          aria-haspopup="listbox"
+        >
+          <input
+            className="input"
+            ref={userInputRef}
+            type="text"
+            placeholder="Search for a user..."
+            value={userQuery}
+            onChange={handleUserInputChange}
+            onFocus={() => setIsUserOpen(true)}
+            onKeyDown={handleUserKeyDown}
+            aria-autocomplete="list"
+            aria-controls="dropdown-user-list"
+          />
+          {isUserOpen && (
+            <ul
+              className="dd-list"
+              id="dropdown-user-list"
+              role="listbox"
+              style={{ maxHeight: "200px", overflowY: "auto" }}
+            >
+              {selectedUser && (
+                <li
+                  key={selectedUser.id}
+                  onMouseDown={() => handleUserClick(selectedUser)}
+                  className={0 === highlightedUserIndex ? "highlighted" : ""}
+                  role="option"
+                  aria-selected={0 === highlightedUserIndex}
+                >
+                  {selectedUser.firstName} {selectedUser.lastName}
+                </li>
+              )}
+              {filteredUsers.length > 0 ? (
+                filteredUsers.map((item, index) => {
+                  const fullName = `${item.firstName} ${item.lastName}`;
+                  return (
+                    <li
+                      key={item.id}
+                      onMouseDown={() => handleUserClick(item)}
+                      className={
+                        index + (selectedUser ? 1 : 0) === highlightedUserIndex
+                          ? "highlighted"
+                          : ""
+                      }
+                      role="option"
+                      aria-selected={
+                        index + (selectedUser ? 1 : 0) === highlightedUserIndex
+                      }
+                    >
+                      {fullName}
+                    </li>
+                  );
+                })
+              ) : (
+                <li className="no-results" role="option">
+                  No results found
+                </li>
+              )}
+            </ul>
+          )}
+        </div>
+        <div
+          className="searchable-dd"
+          ref={dropdownPostRef}
+          onBlur={handlePostBlur}
+          role="combobox"
+          aria-expanded={isPostOpen}
+          aria-haspopup="listbox"
+        >
+          <input
+            className="input"
+            ref={postInputRef}
+            type="text"
+            placeholder="Search for a post..."
+            value={postQuery}
+            onChange={handlePostInputChange}
+            onFocus={() => setIsPostOpen(true)}
+            onKeyDown={handlePostKeyDown}
+            aria-autocomplete="list"
+            aria-controls="dropdown-post-list"
+          />
+          {isPostOpen && (
+            <ul
+              className="dd-list"
+              id="dropdown-post-list"
+              role="listbox"
+              style={{ maxHeight: "200px", overflowY: "auto" }}
+            >
+              {selectedPost && (
+                <li
+                  key={selectedPost.id}
+                  onMouseDown={() => handlePostClick(selectedPost)}
+                  className={0 === highlightedPostIndex ? "highlighted" : ""}
+                  role="option"
+                  aria-selected={0 === highlightedPostIndex}
+                >
+                  {selectedPost.title}
+                </li>
+              )}
+              {filteredPosts.length > 0 ? (
+                filteredPosts.map((item, index) => {
+                  return (
+                    <li
+                      key={item.id}
+                      onMouseDown={() => handlePostClick(item)}
+                      className={
+                        index + (selectedPost ? 1 : 0) === highlightedPostIndex
+                          ? "highlighted"
+                          : ""
+                      }
+                      role="option"
+                      aria-selected={
+                        index + (selectedPost ? 1 : 0) === highlightedPostIndex
+                      }
+                    >
+                      {item.title}
+                    </li>
+                  );
+                })
+              ) : (
+                <li className="no-results" role="option">
+                  No results found
+                </li>
+              )}
+            </ul>
+          )}
+        </div>
       </div>
     </>
   );

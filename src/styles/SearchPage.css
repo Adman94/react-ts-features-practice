@@ -13,6 +13,14 @@
   flex: 1;
 }
 
+.post-section > * {
+  padding: 10px;
+}
+
+.post-section > div {
+  padding-top: 15px;
+}
+
 .userinfo {
   align-content: start;
 }
@@ -24,21 +32,11 @@
   padding-left: 10px;
 }
 
-.json-user-container {
-  /* Retained from original code */
-  width: 95%;
-  max-height: 500px;
-  scrollbar-width: none;
-  border: 1px solid #ccc;
-  /* Add these properties for limited height and scrolling */
-  height: 40%;
-  overflow: auto;
-}
-
+.json-user-container,
 .json-post-container {
   /* Retained from original code */
-  width: 100%;
-  height: 10%;
+  width: 95%;
+  max-height: 350px;
   scrollbar-width: none;
   border: 1px solid #ccc;
   /* Add these properties for limited height and scrolling */

@@ -4,7 +4,7 @@ import { users, posts } from "../../data/masterData.ts";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { dracula } from "react-syntax-highlighter/dist/esm/styles/prism";
 import type { User, Post } from "../types.ts";
-import "./SearchPage.css";
+import "../styles/SearchPage.css";
 import UserDetail from "../components/UserDetail.tsx";
 
 const SearchPage: React.FC = () => {
@@ -13,10 +13,12 @@ const SearchPage: React.FC = () => {
 
   const handleUserSelect = (user: User) => {
     setSelectedUser(user);
+    setSelectedPost(null);
     console.log("Selected user:", user);
   };
   const handlePostSelect = (post: Post) => {
     setSelectedPost(post);
+    setSelectedUser(null);
     console.log("Selected post:", post);
   };
 
@@ -55,10 +57,12 @@ const SearchPage: React.FC = () => {
           <div className="post-section">
             <h2>{selectedPost.title}</h2>
             <p>{selectedPost.body}</p>
-            <div className="json-post-container max-h-48 overflow-y-auto">
-              <SyntaxHighlighter language="json" style={dracula}>
-                {JSON.stringify(selectedPost, null, 2)}
-              </SyntaxHighlighter>
+            <div>
+              <div className="json-post-container max-h-48 overflow-y-auto">
+                <SyntaxHighlighter language="json" style={dracula}>
+                  {JSON.stringify(selectedPost, null, 2)}
+                </SyntaxHighlighter>
+              </div>
             </div>
           </div>
         )}

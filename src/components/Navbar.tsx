@@ -7,6 +7,9 @@ const Navbar: React.FC = () => {
     <nav className="bg-white shadow-md p-4 w-full">
       <div className="nav-links">
         <div>
+          <Link to="/">Home</Link>
+        </div>
+        <div>
           <Link to="/counter">Counter</Link>
         </div>
         <div>

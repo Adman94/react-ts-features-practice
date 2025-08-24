@@ -10,9 +10,13 @@
   text-align: center;
 }
 
+.home {
+  padding-top: 10%;
+}
+
 .logo {
-  height: 6em;
-  padding: 1.5em;
+  height: 12em;
+  padding: 2em;
   will-change: filter;
   transition: filter 300ms;
 }
@@ -33,7 +37,10 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(1) .logo {
+    animation: logo-spin infinite 12s linear;
+  }
   a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+    animation: logo-spin infinite 12s linear;
   }
 }

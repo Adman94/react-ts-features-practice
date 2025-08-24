@@ -17,6 +17,15 @@
   margin-top: 50px;
   font-size: 30px;
 }
+.inputs {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.inputs > * {
+  margin: 2px;
+}
 
 .input {
   width: 20px;

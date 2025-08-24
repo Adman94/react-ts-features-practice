@@ -45,9 +45,10 @@ const SearchPage: React.FC = () => {
               <div className="infoStyle">
                 {selectedUser.firstName} {selectedUser.lastName}
               </div>
+              <UserDetail title="Age" info={selectedUser.age} />
+              <UserDetail title="Gender" info={selectedUser.gender} />
             </div>
-            <UserDetail title="Age" info={selectedUser.age} />
-            <UserDetail title="Gender" info={selectedUser.gender} />
+
             <div className="json-user-container max-h-48 overflow-y-auto">
               <SyntaxHighlighter
                 language="json"

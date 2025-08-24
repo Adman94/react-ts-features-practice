@@ -96,10 +96,6 @@
 .json-user-container::-webkit-scrollbar,
 .json-post-container::-webkit-scrollbar {
   width: 5px; /* Or desired width */
-<<<<<<< HEAD
-=======
-  max-height: 2px;
->>>>>>> main
 }
 
 .json-user-container::-webkit-scrollbar-thumb,
@@ -117,12 +113,7 @@
   overflow: auto;
 }
 
-<<<<<<< HEAD
 .json-user-container:hover,
 .json-post-container:hover {
   filter: drop-shadow(0 0 2em #7db59daa);
-=======
-.json-user-container pre {
-  /* border: 2px solid white; */
->>>>>>> main
 }

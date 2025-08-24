@@ -13,14 +13,6 @@
   flex: 1;
 }
 
-.post-section > * {
-  padding: 10px;
-}
-
-.post-section > div {
-  padding-top: 15px;
-}
-
 .userinfo {
   align-content: start;
 }
@@ -32,14 +24,27 @@
   padding-left: 10px;
 }
 
+.json-user-container::-webkit-scrollbar,
+.json-post-container::-webkit-scrollbar {
+  width: 5px; /* Or desired width */
+  max-height: 2px;
+}
+
+.json-user-container::-webkit-scrollbar-thumb,
+.json-post-container::-webkit-scrollbar-thumb {
+  background-color: #818181;
+  border-radius: 10px;
+}
+
 .json-user-container,
 .json-post-container {
-  /* Retained from original code */
+  margin: 15px;
   width: 95%;
   max-height: 350px;
-  scrollbar-width: none;
-  border: 1px solid #ccc;
-  /* Add these properties for limited height and scrolling */
   height: 40%;
   overflow: auto;
+}
+
+.json-user-container pre {
+  /* border: 2px solid white; */
 }

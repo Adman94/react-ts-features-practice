@@ -227,7 +227,7 @@ const SearchableDropDown: React.FC<SearchableDropDownProps> = ({
                 <li
                   key={selectedUser.id}
                   onMouseDown={() => handleUserClick(selectedUser)}
-                  className={0 === highlightedUserIndex ? "highlighted" : ""}
+                  className={0 === highlightedUserIndex ? "current-user" : ""}
                   role="option"
                   aria-selected={0 === highlightedUserIndex}
                 >
@@ -294,7 +294,7 @@ const SearchableDropDown: React.FC<SearchableDropDownProps> = ({
                 <li
                   key={selectedPost.id}
                   onMouseDown={() => handlePostClick(selectedPost)}
-                  className={0 === highlightedPostIndex ? "highlighted" : ""}
+                  className={0 === highlightedPostIndex ? "current-post" : ""}
                   role="option"
                   aria-selected={0 === highlightedPostIndex}
                 >

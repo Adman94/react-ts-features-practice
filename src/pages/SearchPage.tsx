@@ -8,6 +8,11 @@ import "../styles/SearchPage.css";
 import UserDetail from "../components/UserDetail.tsx";
 
 const SearchPage: React.FC = () => {
+  const customPreStyle = {
+    margin: "0",
+
+    overflow: "none",
+  };
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
 
@@ -46,7 +51,11 @@ const SearchPage: React.FC = () => {
             <UserDetail title="Age" info={selectedUser.age} />
             <UserDetail title="Gender" info={selectedUser.gender} />
             <div className="json-user-container max-h-48 overflow-y-auto">
-              <SyntaxHighlighter language="json" style={dracula}>
+              <SyntaxHighlighter
+                language="json"
+                style={dracula}
+                customStyle={customPreStyle}
+              >
                 {JSON.stringify(selectedUser, null, 2)}
               </SyntaxHighlighter>
             </div>
@@ -57,12 +66,15 @@ const SearchPage: React.FC = () => {
           <div className="post-section">
             <h2>{selectedPost.title}</h2>
             <p>{selectedPost.body}</p>
-            <div>
-              <div className="json-post-container max-h-48 overflow-y-auto">
-                <SyntaxHighlighter language="json" style={dracula}>
-                  {JSON.stringify(selectedPost, null, 2)}
-                </SyntaxHighlighter>
-              </div>
+
+            <div className="json-post-container max-h-48 overflow-y-auto">
+              <SyntaxHighlighter
+                language="json"
+                style={dracula}
+                customStyle={customPreStyle}
+              >
+                {JSON.stringify(selectedPost, null, 2)}
+              </SyntaxHighlighter>
             </div>
           </div>
         )}

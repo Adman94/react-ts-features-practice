@@ -10,8 +10,6 @@ import UserDetail from "../components/UserDetail.tsx";
 const SearchPage: React.FC = () => {
   const customPreStyle = {
     margin: "0",
-
-    overflow: "none",
   };
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
@@ -54,6 +52,10 @@ const SearchPage: React.FC = () => {
               <SyntaxHighlighter
                 language="json"
                 style={dracula}
+                lineProps={{
+                  style: { wordBreak: "break-all", whiteSpace: "pre-wrap" },
+                }}
+                wrapLines={true}
                 customStyle={customPreStyle}
               >
                 {JSON.stringify(selectedUser, null, 2)}
@@ -64,13 +66,21 @@ const SearchPage: React.FC = () => {
 
         {selectedPost && (
           <div className="post-section">
-            <h2>{selectedPost.title}</h2>
-            <p>{selectedPost.body}</p>
+            <div className="postTitleBody">
+              <h2 className="postTitle">{selectedPost.title}</h2>
+              <div className="postBody">
+                <p>{selectedPost.body}</p>
+              </div>
+            </div>
 
             <div className="json-post-container max-h-48 overflow-y-auto">
               <SyntaxHighlighter
                 language="json"
                 style={dracula}
+                lineProps={{
+                  style: { wordBreak: "break-all", whiteSpace: "pre-wrap" },
+                }}
+                wrapLines={true}
                 customStyle={customPreStyle}
               >
                 {JSON.stringify(selectedPost, null, 2)}

@@ -1,7 +1,7 @@
 import reactLogo from "../assets/react.svg";
 import tsLogo from "/tslogo.svg";
 
-const Home = () => {
+const HomePage = () => {
   return (
     <div className="home min-h-screen flex flex-col items-center justify-center bg-gray-100 p-8">
       {/* Logos section, centered */}
@@ -30,4 +30,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomePage;
